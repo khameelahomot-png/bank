@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>NovaBank - About</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial
+        }
+        
+        body {
+            background: #f5f7fb;
+            color: #111827
+        }
+        
+        nav {
+            height: 75px;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 7%;
+            box-shadow: 0 2px 10px #ddd
+        }
+        
+        .logo span {
+            color: #2563eb
+        }
+        
+        nav ul {
+            display: flex;
+            gap: 25px;
+            list-style: none
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold
+        }
+        
+        .signup {
+            background: #2563eb;
+            color: white!important;
+            padding: 12px 20px;
+            border-radius: 7px
+        }
+        
+        .menu {
+            display: none;
+            font-size: 27px;
+            background: none;
+            border: 0
+        }
+        
+        .about {
+            max-width: 1000px;
+            margin: auto;
+            padding: 100px 20px;
+            text-align: center
+        }
+        
+        .about small {
+            color: #2563eb;
+            font-weight: bold
+        }
+        
+        .about h1 {
+            font-size: 50px;
+            margin: 20px
+        }
+        
+        .about h1 span {
+            color: #2563eb
+        }
+        
+        .about p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #6b7280
+        }
+        
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 60px
+        }
+        
+        .card {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px #ddd
+        }
+        
+        .card h2 {
+            color: #2563eb;
+            margin-bottom: 15px
+        }
+        
+        footer {
+            background: #080d18;
+            color: white;
+            padding: 50px 7%;
+            text-align: center
+        }
+        
+        footer span {
+            color: #2563eb
+        }
+        
+        footer p {
+            color: #aaa;
+            margin-top: 10px
+        }
+        
+        @media(max-width:700px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 75px;
+                left: 0;
+                width: 100%;
+                background: white;
+                padding: 25px;
+                flex-direction: column;
+                text-align: center
+            }
+            nav ul.active {
+                display: flex
+            }
+            .menu {
+                display: block
+            }
+            .cards {
+                grid-template-columns: 1fr
+            }
+            .about h1 {
+                font-size: 40px
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <h2 class="logo">Nova<span>Bank</span></h2>
+        <ul id="nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="dash-board.html">Dashboard</a></li>
+            <li><a class="signup" href="signup.html">Sign Up</a></li>
+        </ul>
+        <button class="menu" onclick="toggleMenu()">☰</button>
+    </nav>
+
+    <section class="about">
+        <small>ABOUT NOVABANK</small>
+        <h1>Banking for the <span>modern world.</span></h1>
+
+        <p>
+            NovaBank is a fictional digital banking platform created as a web-development project. Our goal is to demonstrate how a modern banking website can look and function.
+        </p>
+
+        <div class="cards">
+            <div class="card">
+                <h2>🔒</h2>
+                <h3>Security</h3>
+                <p>Designed with security and privacy in mind.</p>
+            </div>
+
+            <div class="card">
+                <h2>⚡</h2>
+                <h3>Speed</h3>
+                <p>Fast and simple digital banking experiences.</p>
+            </div>
+
+            <div class="card">
+                <h2>💡</h2>
+                <h3>Innovation</h3>
+                <p>Modern technology for modern banking.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <h2>Nova<span>Bank</span></h2>
+        <p>Simple. Secure. Digital.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>NovaBank - Sign Up</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial
+        }
+        
+        body {
+            background: linear-gradient(135deg, #eef4ff, #f8fafc);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px
+        }
+        
+        .signup-box {
+            background: white;
+            width: 450px;
+            padding: 40px;
+            border-radius: 18px;
+            box-shadow: 0 15px 40px #d8dce5
+        }
+        
+        .logo {
+            text-align: center;
+            font-size: 30px
+        }
+        
+        .logo span {
+            color: #2563eb
+        }
+        
+        h1 {
+            text-align: center;
+            margin: 15px 0 8px
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #777;
+            margin-bottom: 25px
+        }
+        
+        label {
+            font-weight: bold;
+            font-size: 14px
+        }
+        
+        input {
+            width: 100%;
+            padding: 13px;
+            margin: 7px 0 16px;
+            border: 1px solid #ddd;
+            border-radius: 7px
+        }
+        
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #2563eb;
+            color: white;
+            border: 0;
+            border-radius: 7px;
+            font-weight: bold;
+            cursor: pointer
+        }
+        
+        button:hover {
+            background: #1d4ed8
+        }
+        
+        .bottom {
+            text-align: center;
+            margin-top: 20px
+        }
+        
+        .bottom a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: bold
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="signup-box">
+
+        <div class="logo">Nova<span>Bank</span></div>
+
+        <h1>Create Account</h1>
+        <p class="subtitle">Create your NovaBank demo account</p>
+
+        <form onsubmit="signupUser(event)">
+
+            <label>Full Name</label>
+            <input id="name" type="text" placeholder="Your full name" required>
+
+            <label>Email Address</label>
+            <input id="email" type="email" placeholder="you@example.com" required>
+
+            <label>Phone Number</label>
+            <input id="phone" type="tel" placeholder="+234..." required>
+
+            <label>Password</label>
+            <input id="password" type="password" placeholder="Create password" required>
+
+            <label>Confirm Password</label>
+            <input id="confirmPassword" type="password" placeholder="Confirm password" required>
+
+            <button type="submit">Create Account</button>
+
+        </form>
+
+        <div class="bottom">
+            <p>Already have an account?</p>
+            <a href="login.html">Login</a>
+        </div>
+
+        <div class="bottom">
+            <a href="index.html"> Submit</a>
+        </div>
+
+    </div>
+
+    <script src="bank.js"></script>
+</body>
+
+</html>
