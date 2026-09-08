@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NovaBank - Pay Bills</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background: #f5f7fb;
+            color: #111827;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        /* NAVBAR */
+        
+        nav {
+            height: 75px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            box-shadow: 0 2px 10px #ddd;
+        }
+        
+        .logo {
+            font-size: 28px;
+            color: #111827;
+        }
+        
+        .logo span {
+            color: #2563eb;
+        }
+        
+        .back-btn {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: bold;
+        }
+        /* MAIN */
+        
+        .bill-container {
+            flex: 1;
+            max-width: 550px;
+            margin: 50px auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+        
+        .bill-card {
+            background: white;
+            border-radius: 18px;
+            padding: 35px;
+            box-shadow: 0 15px 40px rgba(37, 99, 235, 0.1);
+        }
+        
+        .bill-card h1 {
+            font-size: 26px;
+            margin-bottom: 8px;
+        }
+        
+        .subtitle {
+            color: #6b7280;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+        /* BALANCE */
+        
+        .balance-info {
+            background: #eff6ff;
+            border-left: 4px solid #2563eb;
+            padding: 14px 18px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .balance-info small {
+            color: #6b7280;
+            display: block;
+            margin-bottom: 4px;
+        }
+        
+        .balance-info strong {
+            color: #111827;
+            font-size: 18px;
+        }
+        /* FORM */
+        
+        .form-group {
+            margin-bottom: 18px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            color: #374151;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1.5px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 15px;
+            background: white;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+        /* BUTTONS */
+        
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 28px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+        
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #374151;
+        }
+        
+        .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+        /* ERROR */
+        
+        .error-msg {
+            color: #dc2626;
+            font-size: 13px;
+            margin-top: 6px;
+            display: none;
+        }
+        
+        .error-msg.show {
+            display: block;
+        }
+        /* SUCCESS */
+        
+        .success-msg {
+            background: #dcfce7;
+            color: #166534;
+            padding: 14px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+            font-size: 14px;
+        }
+        
+        .success-msg.show {
+            display: block;
+        }
+        /* FOOTER */
+        
+        footer {
+            background: #080d18;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        footer span {
+            color: #2563eb;
+        }
+        
+        @media (max-width: 600px) {
+            .bill-card {
+                padding: 25px;
+            }
+            .bill-card h1 {
+                font-size: 22px;
+            }
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav>
+
+        <h2 class="logo">
+            Nova<span>Bank</span>
+        </h2>
+
+        <a href="dash-board.html" class="back-btn">
+            ← Back to Dashboard
+        </a>
+
+    </nav>
+
+
+    <!-- BILL PAYMENT -->
+
+    <div class="bill-container">
+
+        <div class="bill-card">
+
+            <h1>🧾 Pay Bills</h1>
+
+            <p class="subtitle">
+                Pay your bills quickly and securely with NovaBank.
+            </p>
+
+
+            <!-- BALANCE -->
+
+            <div class="balance-info">
+
+                <div>
+
+                    <small>
+                        Available Balance
+                    </small>
+
+                    <strong id="availableBalance">
+                        ₦0.00
+                    </strong>
+
+                </div>
+
+                <div style="font-size: 24px;">
+                    💳
+                </div>
+
+            </div>
+
+
+            <!-- FORM -->
+
+            <form id="billForm" onsubmit="payBill(event)">
+
+                <!-- BILL TYPE -->
+
+                <div class="form-group">
+
+                    <label for="billType">
+                        Bill Type
+                    </label>
+
+                    <select id="billType" required>
+
+                        <option value="">
+                            Select a bill
+                        </option>
+
+                        <option value="Electricity">
+                            💡 Electricity
+                        </option>
+
+                        <option value="Airtime">
+                            📱 Airtime
+                        </option>
+
+                        <option value="Data">
+                            🌐 Data
+                        </option>
+
+                        <option value="Cable TV">
+                            📺 Cable TV
+                        </option>
+
+                        <option value="Water">
+                            💧 Water Bill
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- CUSTOMER NUMBER -->
+
+                <div class="form-group">
+
+                    <label for="customerNumber">
+                        Customer / Phone Number
+                    </label>
+
+                    <input type="text" id="customerNumber" placeholder="e.g. 08012345678" required>
+
+                </div>
+
+
+                <!-- AMOUNT -->
+
+                <div class="form-group">
+
+                    <label for="amount">
+                        Amount (₦)
+                    </label>
+
+                    <input type="number" id="amount" placeholder="0.00" min="1" step="0.01" required>
+
+                    <small class="error-msg" id="errorMsg">
+                    </small>
+
+                </div>
+
+
+                <!-- BUTTONS -->
+
+                <div class="button-group">
+
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='dash-board.html'">
+
+                        Cancel
+
+                    </button>
+
+
+                    <button type="submit" class="btn btn-primary">
+
+                        Pay Bill
+
+                    </button>
+
+                </div>
+
+            </form>
+
+
+            <!-- SUCCESS MESSAGE -->
+
+            <div class="success-msg" id="successMsg">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            © 2026 Nova<span>Bank</span> — Educational Demo
+        </p>
+
+    </footer>
+
+
+    <script>
+        // Get balance
+
+        let balance =
+            parseFloat(localStorage.getItem("novaBalance"));
+
+        if (isNaN(balance)) {
+
+            balance = 850000;
+
+        }
+
+
+        // Display balance
+
+        document.getElementById("availableBalance").textContent =
+            "₦" + balance.toLocaleString("en-NG", {
+
+                minimumFractionDigits: 2,
+
+                maximumFractionDigits: 2
+
+            });
+
+
+        // Pay bill function
+
+        function payBill(event) {
+
+            event.preventDefault();
+
+
+            let billType =
+                document.getElementById("billType").value;
+
+            let customerNumber =
+                document.getElementById("customerNumber").value.trim();
+
+            let amount =
+                parseFloat(document.getElementById("amount").value);
+
+
+            // Validation
+
+            if (!billType) {
+
+                showError("Please select a bill type.");
+
+                return;
+
+            }
+
+
+            if (!customerNumber) {
+
+                showError("Please enter your customer or phone number.");
+
+                return;
+
+            }
+
+
+            if (!amount || amount <= 0) {
+
+                showError("Please enter a valid amount.");
+
+                return;
+
+            }
+
+
+            if (amount > balance) {
+
+                showError(
+                    "Insufficient balance! You only have ₦" +
+                    balance.toLocaleString("en-NG") +
+                    " available."
+                );
+
+                return;
+
+            }
+
+
+            clearError();
+
+
+            // Deduct balance
+
+            balance = balance - amount;
+
+
+            // Save new balance
+
+            localStorage.setItem(
+                "novaBalance",
+                balance
+            );
+
+
+            // Create transaction
+
+            let transaction = {
+
+                type: billType,
+
+                customer: customerNumber,
+
+                amount: amount,
+
+                date: new Date().toISOString()
+
+            };
+
+
+            // Save transaction
+
+            localStorage.setItem(
+                "billTransaction",
+                JSON.stringify(transaction)
+            );
+
+
+            // Show success
+
+            let success =
+                document.getElementById("successMsg");
+
+            success.innerHTML =
+                "✅ <strong>Payment Successful!</strong><br>" +
+                billType +
+                " payment of ₦" +
+                amount.toLocaleString("en-NG", {
+                    minimumFractionDigits: 2
+                }) +
+                " has been processed.";
+
+            success.classList.add("show");
+
+
+            // Update balance
+
+            document.getElementById(
+                    "availableBalance"
+                ).textContent =
+                "₦" + balance.toLocaleString("en-NG", {
+
+                    minimumFractionDigits: 2,
+
+                    maximumFractionDigits: 2
+
+                });
+
+
+            // Reset form
+
+            document.getElementById("billForm").reset();
+
+        }
+
+
+        // Show error
+
+        function showError(message) {
+
+            let error =
+                document.getElementById("errorMsg");
+
+            error.textContent = message;
+
+            error.classList.add("show");
+
+        }
+
+
+        // Clear error
+
+        function clearError() {
+
+            let error =
+                document.getElementById("errorMsg");
+
+            error.textContent = "";
+
+            error.classList.remove("show");
+
+        }
+    </script>
+
+</body>
+
+</html>

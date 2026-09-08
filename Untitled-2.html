@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaBank - Send Money</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background: #f5f7fb;
+            color: #111827;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        /* NAVBAR */
+        
+        nav {
+            height: 75px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            box-shadow: 0 2px 10px #ddd;
+        }
+        
+        .logo {
+            font-size: 28px;
+            color: #111827;
+        }
+        
+        .logo span {
+            color: #2563eb;
+        }
+        
+        .back-btn {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: bold;
+        }
+        /* MAIN */
+        
+        .send-container {
+            flex: 1;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+        
+        .send-card {
+            background: white;
+            border-radius: 18px;
+            padding: 35px;
+            box-shadow: 0 15px 40px rgba(37, 99, 235, 0.1);
+        }
+        
+        .send-card h1 {
+            font-size: 26px;
+            margin-bottom: 8px;
+        }
+        
+        .send-card .subtitle {
+            color: #6b7280;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+        
+        .balance-info {
+            background: #eff6ff;
+            border-left: 4px solid #2563eb;
+            padding: 14px 18px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .balance-info small {
+            color: #6b7280;
+            display: block;
+            margin-bottom: 4px;
+        }
+        
+        .balance-info strong {
+            color: #111827;
+            font-size: 18px;
+        }
+        
+        .form-group {
+            margin-bottom: 18px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            color: #374151;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1.5px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: border-color 0.2s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 28px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+        
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #374151;
+        }
+        
+        .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+        
+        .error-msg {
+            color: #dc2626;
+            font-size: 13px;
+            margin-top: 6px;
+            display: none;
+        }
+        
+        .error-msg.show {
+            display: block;
+        }
+        
+        footer {
+            background: #080d18;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        footer span {
+            color: #2563eb;
+        }
+        
+        @media (max-width: 600px) {
+            .send-card {
+                padding: 25px;
+            }
+            .send-card h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <h2 class="logo">Nova<span>Bank</span></h2>
+        <a href="dash-board.html" class="back-btn">← Back to Dashboard</a>
+    </nav>
+
+    <!-- SEND FORM -->
+    <div class="send-container">
+        <div class="send-card">
+            <h1>💸 Send Money</h1>
+            <p class="subtitle">Transfer funds securely to another NovaBank account.</p>
+
+            <div class="balance-info">
+                <div>
+                    <small>Available Balance</small>
+                    <strong id="availableBalance">₦0.00</strong>
+                </div>
+                <div style="font-size: 24px;">🏦</div>
+            </div>
+
+            <form id="sendForm" onsubmit="handleSend(event)">
+
+                <div class="form-group">
+                    <label for="recipient">Recipient Name</label>
+                    <input type="text" id="recipient" placeholder="e.g. John Doe" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="account">Account Number</label>
+                    <input type="text" id="account" placeholder="e.g. 1234567890" maxlength="10" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="amount">Amount (₦)</label>
+                    <input type="number" id="amount" placeholder="0.00" min="1" step="0.01" required>
+                    <small class="error-msg" id="errorMsg"></small>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='dash-board.html'">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        Confirm & Send
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 Nova<span>Bank</span> — Educational Demo</p>
+    </footer>
+
+    <script>
+        // Load balance from localStorage (shared with dash-board.html)
+        let balance = parseFloat(localStorage.getItem('novaBalance'));
+        if (isNaN(balance)) balance = 850000;
+
+        document.getElementById('availableBalance').textContent =
+            '₦' + balance.toLocaleString('en-NG', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+
+        function handleSend(e) {
+            e.preventDefault();
+
+            const recipient = document.getElementById('recipient').value.trim();
+            const account = document.getElementById('account').value.trim();
+            const amount = parseFloat(document.getElementById('amount').value);
+
+            // Validation
+            if (!recipient) {
+                showError('Please enter a recipient name.');
+                return;
+            }
+            if (!/^\d{10}$/.test(account)) {
+                showError('Please enter a valid 10-digit account number.');
+                return;
+            }
+            if (!amount || amount <= 0) {
+                showError('Please enter a valid amount greater than 0.');
+                return;
+            }
+            if (amount > balance) {
+                showError('Insufficient balance! You only have ₦' +
+                    balance.toLocaleString('en-NG') + ' available.');
+                return;
+            }
+
+            clearError();
+
+            // Save pending transaction to localStorage
+            const transaction = {
+                recipient: recipient,
+                account: account,
+                amount: amount,
+                date: new Date().toISOString()
+            };
+
+            localStorage.setItem('pendingTransaction', JSON.stringify(transaction));
+
+            // Redirect back to dashboard — balance will be deducted there
+            window.location.href = 'dash-board.html';
+        }
+
+        function showError(msg) {
+            const errorMsg = document.getElementById('errorMsg');
+            errorMsg.textContent = msg;
+            errorMsg.classList.add('show');
+        }
+
+        function clearError() {
+            const errorMsg = document.getElementById('errorMsg');
+            errorMsg.textContent = '';
+            errorMsg.classList.remove('show');
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>NovaBank - Contact</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial
+        }
+        
+        body {
+            background: #f5f7fb;
+            color: #111827
+        }
+        
+        nav {
+            height: 75px;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 7%;
+            box-shadow: 0 2px 10px #ddd
+        }
+        
+        .logo span {
+            color: #2563eb
+        }
+        
+        nav ul {
+            display: flex;
+            gap: 25px;
+            list-style: none
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold
+        }
+        
+        .signup {
+            background: #2563eb;
+            color: white!important;
+            padding: 12px 20px;
+            border-radius: 7px
+        }
+        
+        .menu {
+            display: none;
+            font-size: 27px;
+            background: none;
+            border: 0
+        }
+        
+        .contact {
+            max-width: 1000px;
+            margin: auto;
+            padding: 80px 20px
+        }
+        
+        .contact h1 {
+            text-align: center;
+            font-size: 45px;
+            margin-bottom: 15px
+        }
+        
+        .contact h1 span {
+            color: #2563eb
+        }
+        
+        .contact>p {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 45px
+        }
+        
+        .form {
+            background: white;
+            max-width: 650px;
+            margin: auto;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px #ddd
+        }
+        
+        input,
+        textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0 20px;
+            border: 1px solid #ddd;
+            border-radius: 7px;
+            font-size: 16px
+        }
+        
+        textarea {
+            height: 150px;
+            resize: none
+        }
+        
+        button.submit {
+            width: 100%;
+            padding: 15px;
+            background: #2563eb;
+            color: white;
+            border: 0;
+            border-radius: 7px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer
+        }
+        
+        footer {
+            margin-top: 30px;
+            background: #080d18;
+            color: white;
+            text-align: center;
+            padding: 45px
+        }
+        
+        footer span {
+            color: #2563eb
+        }
+        
+        @media(max-width:700px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 75px;
+                left: 0;
+                width: 100%;
+                background: white;
+                padding: 25px;
+                flex-direction: column;
+                text-align: center
+            }
+            nav ul.active {
+                display: flex
+            }
+            .menu {
+                display: block
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <h2 class="logo">Nova<span>Bank</span></h2>
+        <ul id="nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="dash-board.html">Dashboard</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a class="signup" href="signup.html">Sign Up</a></li>
+        </ul>
+        <button class="menu" onclick="toggleMenu()">☰</button>
+    </nav>
+
+    <section class="contact">
+        <h1>Contact <span>Us</span></h1>
+        <p>Have a question? Send us a message.</p>
+
+        <form class="form" onsubmit="contactForm(event)">
+            <input id="contactName" type="text" placeholder="Your Name" required>
+            <input id="contactEmail" type="email" placeholder="Email Address" required>
+            <textarea id="message" placeholder="Your Message" required></textarea>
+            <button class="submit">Send Message</button>
+        </form>
+    </section>
+
+    <footer>
+        <h2>Nova<span>Bank</span></h2>
+        <p>support@novabank.demo</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
+```
